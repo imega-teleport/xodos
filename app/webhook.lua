@@ -14,10 +14,16 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+local json = require "cjson"
+
 ngx.req.read_body()
 local body = ngx.req.get_body_data()
 
-ngx.status = ngx.HTTP_OK
-ngx.say(body)
-ngx.exit(ngx.status)
+local jsonErrorParse, data = pcall(json.decode, body)
+if not jsonErrorParse then
+    ngx.status = ngx.HTTP_BAD_REQUEST
+    ngx.say("400 HTTP_BAD_REQUEST")
+    ngx.exit(ngx.status)
+end
 
+os.execute("curl " .. data.repository.clone_url)

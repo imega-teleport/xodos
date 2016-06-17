@@ -1,12 +1,12 @@
 IMAGE = imegateleport/xodos
 CONTAINERS = teleport_webhook
-PORT = -p 8086:80
+PORT = -p 8186:80
 
 build:
 	@docker build -t $(IMAGE) .
 
 start:
-	@docker run -d --name teleport_webhook $(PORT) $(IMAGE)
+	@docker run -d --name teleport_webhook -v /var/run/docker.sock:/var/run/docker.sock $(PORT) $(IMAGE)
 
 stop:
 	@-docker stop $(CONTAINERS)
