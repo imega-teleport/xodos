@@ -2,7 +2,8 @@ FROM alpine:3.3
 
 EXPOSE 80
 
-RUN apk add --update nginx-lua lua5.1-cjson git docker make && \
+RUN echo "@stale http://dl-4.alpinelinux.org/alpine/v3.2/main" >> /etc/apk/repositories && \
+    apk add --update nginx-lua lua5.1-cjson git docker@stale make && \
     mkdir -p /tmp/nginx/client-body && \
     rm -rf /var/cache/apk/*
 

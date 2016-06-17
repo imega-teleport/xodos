@@ -6,7 +6,11 @@ build:
 	@docker build -t $(IMAGE) .
 
 start:
-	@docker run -d --name teleport_webhook -v /var/run/docker.sock:/var/run/docker.sock $(PORT) $(IMAGE)
+	@docker run -d --name teleport_webhook \
+		-v /root/.dockercfg:/root/.dockercfg \
+		-v /tmp:/tmp \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		$(PORT) $(IMAGE)
 
 stop:
 	@-docker stop $(CONTAINERS)
