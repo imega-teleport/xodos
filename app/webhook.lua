@@ -26,4 +26,4 @@ if not jsonErrorParse then
     ngx.exit(ngx.status)
 end
 
-os.execute("curl " .. data.repository.clone_url)
+os.execute("git clone " .. data.repository.clone_url)
