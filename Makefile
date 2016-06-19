@@ -10,7 +10,7 @@ start:
 		-v /root/.dockercfg:/root/.dockercfg \
 		-v /tmp:/tmp \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		--restart=always
+		--restart=always \
 		$(PORT) $(IMAGE)
 
 stop:
