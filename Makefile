@@ -1,3 +1,5 @@
+include vars.mk
+
 IMAGE = imegateleport/xodos
 CONTAINERS = teleport_webhook
 PORT = -p 8186:80
@@ -10,6 +12,7 @@ start:
 		-v /root/.dockercfg:/root/.dockercfg \
 		-v /tmp:/tmp \
 		-v /var/run/docker.sock:/var/run/docker.sock \
+		-e WEBHOOK=$(WEBHOOK) \
 		$(PORT) $(IMAGE)
 
 stop:

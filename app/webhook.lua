@@ -16,6 +16,8 @@
 
 local json = require "cjson"
 
+local webhook = ngx.var.webhook
+
 ngx.req.read_body()
 local body = ngx.req.get_body_data()
 
@@ -26,6 +28,9 @@ if not jsonErrorParse then
     ngx.exit(ngx.status)
 end
 
+ngx.eof()
+
 os.execute("cd /tmp; git clone " .. data.repository.clone_url)
 os.execute("cd /tmp/" .. data.repository.name .. "; make build && make push")
 os.execute("rm -rf /tmp/" .. data.repository.name)
+os.execute("curl -X POST -d '{\"text\":\"Build and push " .. data.repository.name .. "\"}' " .. webhook)
